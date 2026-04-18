@@ -1,4 +1,4 @@
-def deteccion_componentes(argumento):
+def parseo_de_direccion(argumento):
     direccion = {}  # Diccionario de almacenamiento de datos procesados
 
     # -----Deteccion de simbolos y su cantidad -----------
@@ -64,4 +64,44 @@ def deteccion_componentes(argumento):
 
 
 # -- input de prueba --
-# print(deteccion_componentes(input("> ")))
+# print(parseo_de_direccion(input("> ")))
+
+
+def agregar_alias(diccionario):
+    while True:
+
+        exit = False
+        selec = ""
+        guardar = ""
+        alias = ""
+
+        alias = input("- What's the alias for this conection? -> ")
+        print(f"Selected alias -> {alias}")
+        while len(selec) == 0:
+            guardar = input("are you sure? [y/n]: ").lower().strip()
+            if guardar in ["y","Yes"]:
+                print(f"Stored alias -> {alias}")
+                exit = True
+                break
+            elif guardar in ["n","no"]:
+                while True:
+                    print("\n- press 1 if you want to change the alias")
+                    print("- press 0 if you want to exit")
+                    selec = input(">> ").strip() 
+                    if selec == "1": 
+                        break
+                    elif selec == "0":
+                        return None
+            if exit:
+                break
+        if exit:
+            break
+    diccionario["alias"] = alias
+    return diccionario
+                    
+        
+
+
+
+print(agregar_alias(parseo_de_direccion(input("> "))))
+
