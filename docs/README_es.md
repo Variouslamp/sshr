@@ -57,7 +57,7 @@ La herramienta incluye un sistema de ayuda (`--help`) donde se detallan todas la
 
 ---
 
-## 💻 Compatinilidad
+## 💻 Compatibilidad
 
 SSHR esta siendo desarrollado y probado en sistemas GNU/Linux.
 
@@ -79,10 +79,4 @@ El soporte para windows no se encuentra implementados y se planea para desarroll
 * SSHR no reemplaza SSH, lo complementa
 * Está pensado como una herramienta ligera y práctica
 * Ideal para uso personal y aprendizaje
-
----
-
-## 👨‍💻 Autor
-
-Proyecto desarrollado como práctica y exploración de lógica, parsing y automatización en Python.
 
