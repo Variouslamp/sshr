@@ -4,7 +4,7 @@
 import subprocess
 import sys
 # scripts
-from registrar import deteccion_componentes 
+from registrar import parseo_de_direccion 
 
 # ---------------------------------------------------------------
 # Definicion de flags y su validacion
@@ -65,7 +65,7 @@ def cli_input(argumentos):
             addr = argumentos[1]
             match flag:
                 case "-r":
-                    print(deteccion_componentes(addr))
+                    print(parseo_de_direccion(addr))
                 case _:
                     print("flag invalida para uso con direccion")
         else:
