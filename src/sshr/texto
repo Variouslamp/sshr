@@ -1,0 +1,8 @@
+ 
+Host home
+    HostName 10928
+    Port 6
+ 
+Host hogar
+    HostName hola
+    Port 1

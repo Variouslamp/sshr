@@ -1,4 +1,4 @@
-def parseo_de_direccion(argumento):
+def parseo_de_direccion(argumento: str) -> dict :
     direccion = {}  # Diccionario de almacenamiento de datos procesados
 
     # -----Deteccion de simbolos y su cantidad -----------
@@ -44,30 +44,27 @@ def parseo_de_direccion(argumento):
     num_seccs = len(seccs)
 
     if num_seccs >= 1:
-        direccion["ip"] = f"{seccs[0]}"
+        direccion["HostName"] = f"{seccs[0]}"
     if num_seccs >= 2:
-        direccion["user" if is_arr else "port"] = f"{seccs[1]}"
+        direccion["User" if is_arr else "Port"] = f"{seccs[1]}"
     if num_seccs == 3:
-        direccion["port"] = f"{seccs[2]}"
+        direccion["Port"] = f"{seccs[2]}"
 
     # ---- Reglas basicas de puerto -----
 
-    if "port" not in direccion:
-        direccion["port"] = 22
+    if "Port" not in direccion:
+        direccion["Port"] = 22
     else:
         try:
-            int(direccion["port"])
+            int(direccion["Port"])
         except:
             return print("Error: puerto invalido no numerico")
 
     return direccion  # Retorno de diccionario organizado
 
+# -----------------------------------------------------------
 
-# -- input de prueba --
-# print(parseo_de_direccion(input("> ")))
-
-
-def agregar_alias(diccionario):
+def agregar_alias(diccionario: dict) -> dict:
     while True:
 
         exit = False
@@ -96,12 +93,30 @@ def agregar_alias(diccionario):
                 break
         if exit:
             break
-    diccionario["alias"] = alias
+    diccionario["Host"] = alias
     return diccionario
                     
-        
+# ------------------------------------------------
+# Funciond de creacion de texto para el documento
+
+def agregar_conexion(datos: dict) -> str:
+    campos_disponibles = ["Host", "HostName", "User", "Port"]
+    
+    lineas = [" ",]
+    
+    for campo in campos_disponibles:
+        if campo in datos:
+            valor = datos[campo]
+            sangria = "" if campo == "Host" else "    "
+            lineas.append(f"{sangria}{campo} {valor}")
+    
+    return "\n".join(lineas)
 
 
+#-------- Funcion de registro de direcciones------
 
-print(agregar_alias(parseo_de_direccion(input("> "))))
-
+def register_main(argumentos: str):
+    dic = agregar_alias(parseo_de_direccion(argumentos))
+    tx = agregar_conexion(dic)
+    with open("/home/various/projects-dev/sshr/src/sshr/texto", "a") as f:
+        f.write(tx)

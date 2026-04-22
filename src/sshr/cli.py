@@ -4,7 +4,7 @@
 import subprocess
 import sys
 # scripts
-from registrar import parseo_de_direccion 
+from commands.registrar import register_main 
 
 # ---------------------------------------------------------------
 # Definicion de flags y su validacion
@@ -25,18 +25,18 @@ COMANDOS = {
         "flags": ["-d", "--delete"]},
 }
 
-def validar_flag(flag, diccionario):
+def validar_flag(flag: str, diccionario: dict) -> bool:
     for comando in diccionario:
         if comando[0] in flag:
             flag_list =  diccionario[comando]["flags"]
             if flag in flag_list:
                 return True
     return False
-    
+   
 
 # ---------------------------------------------------------------
 
-def cli_input(argumentos):
+def cli_input(argumentos: tuple):
     num_argumentos  = len(argumentos)
     if num_argumentos == 0:
             print("sshr error: Menos argumentos de los esperados")
@@ -53,9 +53,9 @@ def cli_input(argumentos):
                 case "-r":
                     print("Error: flantan argumentos '-r <direccion>'")
                 case _:
-                    print(f"Argumento '{arg}' no identificado")
+                    print(f"Error: Argumento '{arg}' no identificado")
         else:
-            subprocess.run(["ssh", f"{arg}"]) # probablemente lo cambiare o quite
+            print("Error: ")
 
 # ---------------------------------------------------------------
 
@@ -65,7 +65,7 @@ def cli_input(argumentos):
             addr = argumentos[1]
             match flag:
                 case "-r":
-                    print(parseo_de_direccion(addr))
+                    register_main(addr)
                 case _:
                     print("flag invalida para uso con direccion")
         else:
