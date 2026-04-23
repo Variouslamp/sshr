@@ -1,4 +1,4 @@
-def parseo_de_direccion(argumento: str) -> dict :
+def parseo_de_direccion(argumento: str) -> dict:
     direccion = {}  # Diccionario de almacenamiento de datos procesados
 
     # -----Deteccion de simbolos y su cantidad -----------
@@ -57,12 +57,13 @@ def parseo_de_direccion(argumento: str) -> dict :
     else:
         try:
             int(direccion["Port"])
-        except:
+        except ValueError:
             return print("Error: puerto invalido no numerico")
 
     return direccion  # Retorno de diccionario organizado
 
-# -----------------------------------------------------------
+# -----------------------------------------------------------------------------
+
 
 def agregar_alias(diccionario: dict) -> dict:
     while True:
@@ -76,16 +77,16 @@ def agregar_alias(diccionario: dict) -> dict:
         print(f"Selected alias -> {alias}")
         while len(selec) == 0:
             guardar = input("are you sure? [y/n]: ").lower().strip()
-            if guardar in ["y","Yes"]:
+            if guardar in ["y", "Yes"]:
                 print(f"Stored alias -> {alias}")
                 exit = True
                 break
-            elif guardar in ["n","no"]:
+            elif guardar in ["n", "no"]:
                 while True:
                     print("\n- press 1 if you want to change the alias")
                     print("- press 0 if you want to exit")
-                    selec = input(">> ").strip() 
-                    if selec == "1": 
+                    selec = input(">> ").strip()
+                    if selec == "1":
                         break
                     elif selec == "0":
                         return None
@@ -95,28 +96,39 @@ def agregar_alias(diccionario: dict) -> dict:
             break
     diccionario["Host"] = alias
     return diccionario
-                    
-# ------------------------------------------------
+
+# -----------------------------------------------------------------------------
 # Funciond de creacion de texto para el documento
+
 
 def agregar_conexion(datos: dict) -> str:
     campos_disponibles = ["Host", "HostName", "User", "Port"]
-    
-    lineas = [" ",]
-    
+
+    lineas = [" "]
+
     for campo in campos_disponibles:
         if campo in datos:
             valor = datos[campo]
             sangria = "" if campo == "Host" else "    "
             lineas.append(f"{sangria}{campo} {valor}")
-    
+
     return "\n".join(lineas)
 
+# -----------------------------------------------------------------------------
+# Funcion que se encarga de verificar la existencia de un config ssh, si no
+# existe lo crea
 
-#-------- Funcion de registro de direcciones------
+def config_exists(direccion: str):
+    darchivo = Path()
 
-def register_main(argumentos: str):
-    dic = agregar_alias(parseo_de_direccion(argumentos))
-    tx = agregar_conexion(dic)
-    with open("/home/various/projects-dev/sshr/src/sshr/texto", "a") as f:
-        f.write(tx)
+# -----------------------------------------------------------------------------
+# Funcion principal de la funcion de registro de direcciones
+
+
+def register_main(direccion_conexion: str, directorio_ssh: str):
+    diccionario_direccion = parseo_de_direccion(direccion_conexion)
+    if diccionario_direccion:
+        diccionario_almacenar = agregar_alias(diccionario_direccion)
+        texto_configuracion = agregar_conexion(diccionario_almacenar)
+        with open(directorio_ssh, "a") as f:
+            f.write(f"{texto_configuracion}\n")

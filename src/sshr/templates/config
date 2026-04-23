@@ -1,0 +1,8 @@
+ 
+Host home-lab
+    HostName juan
+    Port 22
+ 
+Host work
+    HostName 12334
+    Port 1
