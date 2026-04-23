@@ -115,13 +115,6 @@ def agregar_conexion(datos: dict) -> str:
     return "\n".join(lineas)
 
 # -----------------------------------------------------------------------------
-# Funcion que se encarga de verificar la existencia de un config ssh, si no
-# existe lo crea
-
-def config_exists(direccion: str):
-    darchivo = Path()
-
-# -----------------------------------------------------------------------------
 # Funcion principal de la funcion de registro de direcciones
 
 
