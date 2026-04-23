@@ -56,4 +56,9 @@ def main():
 
 # -----------------------------------------------------------------------------
 
-main()
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nSaliendo...")
+        sys.exit(130)

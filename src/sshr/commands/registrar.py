@@ -89,6 +89,7 @@ def agregar_alias(diccionario: dict) -> dict:
                     if selec == "1":
                         break
                     elif selec == "0":
+                        print("Saliendo...")
                         return None
             if exit:
                 break
@@ -122,6 +123,8 @@ def register_main(direccion_conexion: str, directorio_ssh: str):
     diccionario_direccion = parseo_de_direccion(direccion_conexion)
     if diccionario_direccion:
         diccionario_almacenar = agregar_alias(diccionario_direccion)
+        if diccionario_almacenar is None:
+            return
         texto_configuracion = agregar_conexion(diccionario_almacenar)
         with open(directorio_ssh, "a") as f:
             f.write(f"{texto_configuracion}\n")
