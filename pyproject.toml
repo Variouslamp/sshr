@@ -6,4 +6,4 @@ authors = [{ name = "sebastian" }]
 dependencies = []
 
 [project.scripts]
-sshr = "sshr.cli:main"
+sshr = "sshr.core.cli:main"

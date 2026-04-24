@@ -51,9 +51,11 @@ The tool includes a help system (`--help`) that explains all available options a
 ## 🛠️ Project status
 
 * ✅ Connection registration (`-r`) implemented
-* ⚙️ Listing connections (`-l`) in development
+* ✅ Listing connections (`-l`) implemented
 * ⚙️ Editing connections (`-e`) in development
 * ⚙️ Deleting connections (`-d`) in development
+* ⚙️ Help command (`-h`) in development
+
 
 ---
 

@@ -1,0 +1,27 @@
+ 
+Host home
+    HostName 123
+    Port 22
+ 
+Host home1
+    HostName 345
+    Port 22
+ 
+Host home3
+    HostName 34521351
+    Port 22
+ 
+Host si
+    HostName 1
+    User 1234
+    Port 22
+ 
+Host nuc_personal
+    HostName nuc
+    User various
+    Port 22
+ 
+Host maquina-postgres1
+    HostName 198.134.56.1
+    User ingeservitec
+    Port 22

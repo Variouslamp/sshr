@@ -50,10 +50,11 @@ La herramienta incluye un sistema de ayuda (`--help`) donde se detallan todas la
 
 ## 🛠️ Estado del proyecto
 
-* ⚙️ Registro de conexiones (`-r`) en desarrollo
-* ⚙️ Listado de conexiones (`-l`) en desarrollo
+* ✅ Registro de conexiones (`-r`) implementado
+* ✅ Listado de conexiones (`-l`) implementado
 * ⚙️ Edición de conexiones (`-e`) en desarrollo
 * ⚙️ Eliminación de conexiones (`-d`) en desarrollo
+* ⚙️ Comando de ayuda (`-h`) en desarrollo
 
 ---
 

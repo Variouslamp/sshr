@@ -32,10 +32,10 @@ COMANDOS = {
         },
     "list": {
         "function": list_main,
-        "flags": ["-l", "--list"],
-        "used_args": 0,
+        "flags": ["-l", "-ll", "--list"],
+        "used_args": 2,
         "input_args": 1,
-        "need_args": [],
+        "need_args": ["flag", "directorio_ssh"],
         },
     "delete": {
         "function": delete_main,
@@ -92,6 +92,8 @@ def obtener_argumentos(
                     if archivo.exists():
                         argumentos_entregar.append(archivo)
                         break
+            case "flag":
+                argumentos_entregar.append(argumentos[0])
             case _:
                 return print("Error: campo no esta en direcciones")
     return argumentos_entregar
