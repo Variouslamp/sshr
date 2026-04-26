@@ -22,7 +22,7 @@ def imprimir_lista_larga(lista_ordenada: list):
     numero = 0
     for registro in lista_ordenada:
         numero += 1
-        print(f"#{numero} ---")
+        print(f"[{numero}]")
         registro = (registro
                     .replace("HostName", "ip:")
                     .replace("Host", "Name:")
@@ -53,7 +53,7 @@ def mostrar_hosts(lista):
         if port:
             direccion = f"{direccion}:{port}"
 
-        print(f"#{i} - {host} - {direccion}")
+        print(f"[{i}] {host} - {direccion}")
 
 # -----------------------------------------------------------------------------
 # Funcion principal de listado de los registros
