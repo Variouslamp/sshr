@@ -1,0 +1,9 @@
+[project]
+name = "sshr"
+version = "0.1.0"
+description = "SSH Register CLI tool"
+authors = [{ name = "sebastian" }]
+dependencies = []
+
+[project.scripts]
+sshr = "sshr.core.cli:main"

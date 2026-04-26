@@ -1,0 +1,14 @@
+ 
+Host casa
+    HostName hola
+    Port 22
+ 
+Host NUC
+    HostName 123.123.123
+    User various
+    Port 34
+ 
+Host work
+    HostName diego.sv.com
+    User diego
+    Port 22
