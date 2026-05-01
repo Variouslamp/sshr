@@ -63,13 +63,14 @@ def parseo_de_direccion(argumento: str) -> dict:
     return direccion  # Retorno de diccionario organizado
 
 # -----------------------------------------------------------------------------
+# Funcion que se encarga del almacenamiento de alias para poder usarlo como
+# alias en una conexion de ssh
 
 
 def agregar_alias(diccionario: dict) -> dict:
     while True:
 
         exit = False
-        selec = ""
         guardar = ""
         alias = ""
 
@@ -109,7 +110,7 @@ def agregar_alias(diccionario: dict) -> dict:
 def agregar_conexion(datos: dict) -> str:
     campos_disponibles = ["Host", "HostName", "User", "Port"]
 
-    lineas = [" "]
+    lineas = [""]
 
     for campo in campos_disponibles:
         if campo in datos:
