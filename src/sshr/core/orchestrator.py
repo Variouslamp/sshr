@@ -40,9 +40,9 @@ COMANDOS = {
     "delete": {
         "function": delete_main,
         "flags": ["-d", "--delete"],
-        "used_args": 0,
+        "used_args": 1,
         "input_args": 1,
-        "need_args": [],
+        "need_args": ["directorio_ssh"],
         },
     "build": {
         "function": build_main,
