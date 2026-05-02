@@ -52,8 +52,8 @@ The tool includes a help system (`--help`) that explains all available options a
 
 * ✅ Connection registration (`-r`) implemented
 * ✅ Listing connections (`-l`) implemented
+* ✅ Deleting connections (`-d`) implemented
 * ⚙️ Editing connections (`-e`) in development
-* ⚙️ Deleting connections (`-d`) in development
 * ⚙️ Help command (`-h`) in development
 
 

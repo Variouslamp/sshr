@@ -16,7 +16,7 @@ def get_text(ssh_file: str) -> list:
 # Funcion de validador de inputs
 
 
-def validator(text: str, type: type):
+def validator(text: str, type: type) -> type: # retorna el type que se ingreso
     while True:
         try:
             data = type(input(text))
@@ -30,14 +30,14 @@ def validator(text: str, type: type):
 # Funcion que recibe la informacion del usuario para elecicon de elminiacion
 
 
-def selection(ssh_file: str, dictionary_lines: dict):
+def selection(ssh_file: str, dictionary_lines: dict) -> int:
     list_main("-l",ssh_file) # Uso de funcion de lista simple de .list.py
     lenght_options = len(dictionary_lines)
     if 0 in dictionary_lines:
         lenght_options -= 1
     while True:
         selection = validator(f"\nSelect to delete [1-{lenght_options}]: ", int)
-        if selection in range(1, lenght_options):
+        if selection in range(1, lenght_options+1):
             break
         else:
             print(f"Error: Selected value is out of range, valid range [1-{lenght_options}]")
@@ -60,7 +60,7 @@ def selection(ssh_file: str, dictionary_lines: dict):
 # Funcion que recibe todas las lineas el documento y parsea la informaicon interna
 
 
-def line_parser(lines: list):
+def line_parser(lines: list) -> dict:
     diccionario = {}
     bloque = 0
     for linea in lines:
@@ -91,16 +91,38 @@ def line_parser(lines: list):
 # -----------------------------------------------------------------------------
 #  Funcion que elimina y cronstruye el nuevo texto
 
+
 def delete(dictionary_lines: dict, delete_selection: int ):
     dictionary_lines.pop(delete_selection)
-    return dictionary_lines
+    new_text = []
+    old_section = []
+
+    for section in dictionary_lines:
+
+        if not old_section:
+            old_section = 0
+        if old_section != section:
+            old_section = section
+            new_text.append("\n")
+        if section == 0:
+            for comment in dictionary_lines[0]:
+                new_text.append(comment)
+        else:
+            for type_line in dictionary_lines[section]:
+                for value in dictionary_lines[section][type_line]:
+                    new_text.append(value)
+    return "".join(new_text)
+
+
 
 # -----------------------------------------------------------------------------
-# Funcion main que ensambla todas las unfiones del modulo delete
+# Funcion main que ensambla todas las funfiones del modulo delete
 
 
 def delete_main(ssh_file: str):
     texto = get_text(ssh_file)
     dictionary_lines = line_parser(texto)
     delete_selection = selection(ssh_file, dictionary_lines)
-    print(delete(dictionary_lines, delete_selection))
+    new_text = delete(dictionary_lines, delete_selection)
+    with open(ssh_file, "w") as archivo:
+        archivo.write(new_text)

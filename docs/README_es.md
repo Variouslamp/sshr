@@ -52,8 +52,8 @@ La herramienta incluye un sistema de ayuda (`--help`) donde se detallan todas la
 
 * ✅ Registro de conexiones (`-r`) implementado
 * ✅ Listado de conexiones (`-l`) implementado
+* ✅ Eliminación de conexiones (`-d`) implementado
 * ⚙️ Edición de conexiones (`-e`) en desarrollo
-* ⚙️ Eliminación de conexiones (`-d`) en desarrollo
 * ⚙️ Comando de ayuda (`-h`) en desarrollo
 
 ---
