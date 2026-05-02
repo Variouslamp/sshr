@@ -3,7 +3,7 @@
 # (Tambien se utiliza en el modulo delete (tener cuidado al editar))
 
 
-def entrega_texto(archivo_ssh: str) -> list:
+def get_text(archivo_ssh: str) -> list:
     with open(archivo_ssh, "r")as f:
         archivo = f.read()
     return archivo
@@ -13,8 +13,8 @@ def entrega_texto(archivo_ssh: str) -> list:
 # Funcion que que extrae las conexiones del archivo config y las entrega ordenadas
 
 
-def obtener_conexiones(archivo_ssh: str) -> list:
-    conexiones = (entrega_texto(archivo_ssh)).split("\n\n")
+def get_conections(archivo_ssh: str) -> list:
+    conexiones = (get_text(archivo_ssh)).split("\n\n")
     lista_ordenada = []
     for conexion in conexiones:
         if not conexion:
@@ -28,7 +28,7 @@ def obtener_conexiones(archivo_ssh: str) -> list:
 # Funcion la cual imprime todas las conexiones en formato de lista larga
 
 
-def imprimir_lista_larga(lista_ordenada: list):
+def print_long_list(lista_ordenada: list):
     numero = 0
     for registro in lista_ordenada:
         numero += 1
@@ -45,7 +45,7 @@ def imprimir_lista_larga(lista_ordenada: list):
 # Funcion la cual imprime todas las conexiones en formato de lista larga
 
 
-def imprimir_lista_corta(lista):
+def print_short_list(lista):
     contador = 1
     for bloque in lista:
         datos = {}
@@ -73,10 +73,13 @@ def imprimir_lista_corta(lista):
 # Funcion principal de listado de los registros
 
 
-def list_main(flag: str, archivo_ssh: str):
-    lista = obtener_conexiones(archivo_ssh)
+def list_main( archivo_ssh: str, flag: str = "-l"):
+    lista = get_conections(archivo_ssh)
+    if len(lista) == 0:
+        print("\nNo conections to list.")
+        return
     match flag:
         case "-ll":
-            imprimir_lista_larga(lista)
+            print_long_list(lista)
         case _:
-            imprimir_lista_corta(lista)
+            print_short_list(lista)

@@ -35,7 +35,7 @@ COMANDOS = {
         "flags": ["-l", "-ll", "--list"],
         "used_args": 2,
         "input_args": 1,
-        "need_args": ["flag", "directorio_ssh"],
+        "need_args": ["directorio_ssh", "flag"],
         },
     "delete": {
         "function": delete_main,
