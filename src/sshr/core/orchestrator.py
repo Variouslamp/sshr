@@ -3,7 +3,7 @@ from pathlib import Path
 import configparser
 
 # funciones
-from sshr.commands.registrar import register_main  # funcion de registro
+from sshr.commands.register import register_main  # funcion de registro
 from sshr.commands.list import list_main  # funcion de listado
 from sshr.commands.delete import delete_main  # funcion de eliminacion
 from sshr.commands.edit import edit_main  # funcion de edicion de registros

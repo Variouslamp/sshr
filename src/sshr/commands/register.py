@@ -1,3 +1,10 @@
+# importaciones
+
+from sshr.core.internal.validation import validator # validador de input
+
+
+# -----------------------------------------------------------------------------
+
 def parseo_de_direccion(argumento: str) -> dict:
     direccion = {}  # Diccionario de almacenamiento de datos procesados
 
@@ -62,12 +69,28 @@ def parseo_de_direccion(argumento: str) -> dict:
 
     return direccion  # Retorno de diccionario organizado
 
+
+# -----------------------------------------------------------------------------
+# Funcion que valida que no se ingresen nombres repetidos en las conecciones
+
+def name_exist(selected_name: str, ssh_file: str):
+    names = []
+    with open(ssh_file, "r")as file:
+        for line in file:
+            if "Host " in line:
+                register_name = ((line.strip().split(" "))[1]).replace("\n", " ")
+                names.append(register_name)
+        for name in names:
+            if selected_name == name:
+                return True
+    return False
+
 # -----------------------------------------------------------------------------
 # Funcion que se encarga del almacenamiento de alias para poder usarlo como
 # alias en una conexion de ssh
 
 
-def agregar_alias(diccionario: dict) -> dict:
+def agregar_alias(diccionario: dict, ssh_file: str) -> dict:
     while True:
 
         exit = False
@@ -76,16 +99,16 @@ def agregar_alias(diccionario: dict) -> dict:
 
         alias = input("- What's the alias for this conection? -> ")
         print(f"Selected alias: {alias}")
+        if name_exist(alias, ssh_file):
+            print(f"\nThe selected name '{alias}' exists yet, pleas select a diferent one")
+            continue
         while guardar != 1:
             print("\nSelec an option to continua")
             print(f"- 1 to store the conection with '{alias}' alias")
             print("- 2 to edit the alias")
             print("- 0 to cancel the process")
             while True:
-                try:
-                    guardar = int(input("> "))
-                except ValueError:
-                    print("Error: Selected option is not valid")
+                guardar = validator(int, "> ", "Error: Selected option is not valid")
                 if guardar == 1:
                     print(f"Stored alias -> {alias}")
                     exit = True
@@ -124,12 +147,12 @@ def agregar_conexion(datos: dict) -> str:
 # Funcion principal de la funcion de registro de direcciones
 
 
-def register_main(direccion_conexion: str, directorio_ssh: str):
+def register_main(direccion_conexion: str, ssh_file: str):
     diccionario_direccion = parseo_de_direccion(direccion_conexion)
     if diccionario_direccion:
-        diccionario_almacenar = agregar_alias(diccionario_direccion)
+        diccionario_almacenar = agregar_alias(diccionario_direccion, ssh_file)
         if diccionario_almacenar is None:
             return
         texto_configuracion = agregar_conexion(diccionario_almacenar)
-        with open(directorio_ssh, "a") as f:
+        with open(ssh_file, "a") as f:
             f.write(f"{texto_configuracion}\n")
