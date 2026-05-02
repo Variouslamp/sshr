@@ -1,4 +1,6 @@
-from .list import list_main # Importa impresion de lista
+from .list import list_main # impresion de lista
+from sshr.core.internal.validation import validator # validador de input
+
 
 # -----------------------------------------------------------------------------
 # Funcion que parsea y ordena las lineas en un diccionario
@@ -13,30 +15,19 @@ def get_text(ssh_file: str) -> list:
 
 
 # -----------------------------------------------------------------------------
-# Funcion de validador de inputs
-
-
-def validator(text: str, type: type) -> type: # retorna el type que se ingreso
-    while True:
-        try:
-            data = type(input(text))
-            return data
-        except ValueError:
-            print(f"Error: Given value is invalid just {type} value accepted")
-            continue
-
-
-# -----------------------------------------------------------------------------
 # Funcion que recibe la informacion del usuario para elecicon de elminiacion
 
 
 def selection(ssh_file: str, dictionary_lines: dict) -> int:
-    list_main("-l",ssh_file) # Uso de funcion de lista simple de .list.py
+    list_main(ssh_file) # Uso de funcion de lista simple de .list.py
     lenght_options = len(dictionary_lines)
     if 0 in dictionary_lines:
         lenght_options -= 1
     while True:
-        selection = validator(f"\nSelect to delete [1-{lenght_options}]: ", int)
+        if lenght_options <= 0:
+            # Cuando no hay ningun elemento en .ssh/config para eliminar
+            return -1
+        selection = validator(int, f"\nSelect to delete [1-{lenght_options}]: ")
         if selection in range(1, lenght_options+1):
             break
         else:
@@ -50,7 +41,7 @@ def selection(ssh_file: str, dictionary_lines: dict) -> int:
         print(line)
     print(" ")
     while True:
-        decision = (validator("Are you sure? [Y/N]: ", str)).lower().strip()
+        decision = (validator(str, "Are you sure? [Y/N]: ")).lower().strip()
         if decision == "y":
             return selection
         elif decision == "n":
@@ -123,6 +114,9 @@ def delete_main(ssh_file: str):
     texto = get_text(ssh_file)
     dictionary_lines = line_parser(texto)
     delete_selection = selection(ssh_file, dictionary_lines)
+    if delete_selection == -1:
+        # Sin conexiones para listar asi que se sale del programa
+        return
     new_text = delete(dictionary_lines, delete_selection)
     with open(ssh_file, "w") as archivo:
         archivo.write(new_text)
