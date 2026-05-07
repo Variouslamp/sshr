@@ -1,5 +1,6 @@
-from .list import list_main # impresion de lista
-from sshr.core.internal.validation import validator # validador de input
+from .list import list_main
+from sshr.core.internal.validation import validator
+from sshr.assistant.error import Error
 
 
 # -----------------------------------------------------------------------------
@@ -31,7 +32,7 @@ def selection(ssh_file: str, dictionary_lines: dict) -> int:
         if selection in range(1, lenght_options+1):
             break
         else:
-            print(f"Error: Selected value is out of range, valid range [1-{lenght_options}]")
+            Error("ERR009").format(max=lenght_options).print_er()
     print("Conection details:\n")
     for data in (dictionary_lines[selection]["lines"]):
         line = (data.replace("HostName", "ip:")

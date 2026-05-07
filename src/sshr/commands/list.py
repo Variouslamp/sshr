@@ -1,6 +1,4 @@
-# -----------------------------------------------------------------------------
-# Funcion que permite obtener lista de conecciones y dividirlas en secciones
-# (Tambien se utiliza en el modulo delete (tener cuidado al editar))
+from sshr.assistant.error import Error
 
 
 def get_text(archivo_ssh: str) -> list:
@@ -76,7 +74,7 @@ def print_short_list(lista):
 def list_main( archivo_ssh: str, flag: str = "-l"):
     lista = get_conections(archivo_ssh)
     if len(lista) == 0:
-        print("\nNo conections to list.")
+        Error("ERR010").print_er()
         return
     match flag:
         case "-ll":

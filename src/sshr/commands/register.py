@@ -1,6 +1,7 @@
 # importaciones
 
-from sshr.core.internal.validation import validator # validador de input
+from sshr.core.internal.validation import validator
+from sshr.assistant.error import Error
 
 
 # -----------------------------------------------------------------------------
@@ -14,30 +15,26 @@ def parseo_de_direccion(argumento: str) -> dict:
     if is_arr:
         num_arr = argumento.count("@")
         if num_arr > 1:
-            return print(
-                f"Error: mas simbolos '@' de los necesarios en '{argumento}'")
+            return Error("ERR001").format(value=argumento).print_er()
     is_dp = (True if ":" in argumento else False)
     if is_dp:
         num_dp = argumento.count(":")
         if num_dp > 1:
-            return print(f"Error: mas simbolos ':' en '{argumento}'")
+            return Error("ERR002").format(value=argumento).print_er()
 
     # ---- Divicion de segmentos de la direccion -----------------
 
     seccs = list(argumento.replace("@", ":").split(":"))
     for secc in seccs:
         if not secc:
-            return print(
-                f"Error: Argumentos faltantes en la direccion: '{argumento}'")
+            return Error("ERR003").format(value=argumento).print_er()
     if is_arr and is_dp:
         arr_sec = argumento.split("@")
         dp_sec = argumento.split(":")
         if ":" in arr_sec[0]:
-            return print(
-                f"Error: Orden de los argumentos de direccion erroneo '{argumento}', : detras de @")
+            return Error("ERR004").format(value=argumento).print_er()
         if "@" in dp_sec[1]:
-            return print(
-                f"Error: Orden de los argumentos de direccion erroneo '{argumento}', @ delante de :")
+            return Error("ERR005").format(value=argumento).print_er()
     elif is_arr:
         arr_sec = argumento.split("@")
 
@@ -65,7 +62,7 @@ def parseo_de_direccion(argumento: str) -> dict:
         try:
             int(direccion["Port"])
         except ValueError:
-            return print("Error: puerto invalido no numerico")
+            return Error("ERR006").print_er()
 
     return direccion  # Retorno de diccionario organizado
 
@@ -100,7 +97,7 @@ def agregar_alias(diccionario: dict, ssh_file: str) -> dict:
         alias = input("- What's the alias for this conection? -> ")
         print(f"Selected alias: {alias}")
         if name_exist(alias, ssh_file):
-            print(f"\nThe selected name '{alias}' exists yet, pleas select a diferent one")
+            Error("ERR007").format(name=alias).print_er()
             continue
         while guardar != 1:
             print("\nSelec an option to continua")
@@ -108,7 +105,7 @@ def agregar_alias(diccionario: dict, ssh_file: str) -> dict:
             print("- 2 to edit the alias")
             print("- 0 to cancel the process")
             while True:
-                guardar = validator(int, "> ", "Error: Selected option is not valid")
+                guardar = validator(int, "> ")
                 if guardar == 1:
                     print(f"Stored alias -> {alias}")
                     exit = True

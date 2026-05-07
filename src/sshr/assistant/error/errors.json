@@ -1,0 +1,54 @@
+{
+  "register": {
+    "ERR001": {
+      "message": "[ERR001] Invalid address: too many '@' symbols in '{value}'",
+      "help": "→ Use format: user@hostname:port"
+    },
+    "ERR002": {
+      "message": "[ERR002] Invalid address: too many ':' symbols in '{value}'",
+      "help": "→ Use format: user@hostname:port"
+    },
+    "ERR003": {
+      "message": "[ERR003] Invalid address: missing required parts in '{value}'",
+      "help": "→ Use format: user@hostname:port"
+    },
+    "ERR004": {
+      "message": "[ERR004] Invalid address: ':' must come after '@' in '{value}'",
+      "help": "→ Use format: user@hostname:port"
+    },
+    "ERR005": {
+      "message": "[ERR005] Invalid address: '@' must come after ':' in '{value}'",
+      "help": "→ Use format: user@hostname:port"
+    },
+    "ERR006": {
+      "message": "[ERR006] Invalid address: port must be a number",
+      "help": "→ Use format: user@hostname:port"
+    },
+    "ERR007": {
+      "message": "[ERR007] Alias already exists: '{name}' is already registered",
+      "help": "→ Choose a different name"
+    },
+    "ERR008": {
+      "message": "[ERR008] Invalid option: enter a number",
+      "help": "→ Select 1, 2, or 0 to continue"
+    }
+  },
+  "delete": {
+    "ERR009": {
+      "message": "[ERR009] Invalid selection: enter a number between 1 and {max}",
+      "help": "→ Select a valid option from the list"
+    }
+  },
+  "list": {
+    "ERR010": {
+      "message": "[ERR010] No connections found",
+      "help": "→ Register a connection first using --register"
+    }
+  },
+  "validation": {
+    "ERR011": {
+      "message": "[ERR011] Invalid input: expected a {type}",
+      "help": "→ Enter a valid value and try again"
+    }
+  }
+}
