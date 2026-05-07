@@ -63,8 +63,3 @@ class Error():
 
 
 # -----------------------------------------------------------------------------
-
-
-Error("ERR007").format(name="juan juanito juan").print_er()
-
-#.format("holoa", 12)
