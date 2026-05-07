@@ -23,19 +23,23 @@ class ErrorValueOutOfRange(Exception):
 
 class Error():
     def __init__(self, code: str):
+        """Loads the JSON, validates the error code and prepares the text."""
         self.dict = self._get_dict()
         self.error = self._validator(code)
         self.text = self._get_text()
 
     def print_er(self):
+        """Prints the formatted error with code, description and help text."""
         print(self.text)
 
     def _get_dict(self):
+        """Loads and returns the errors.json file as a dictionary."""
         with open(ERRORS_JSON, "r") as f:
             err_dict = json.load(f)
         return err_dict
 
     def _get_text(self) -> dict:
+        """Builds the error string from message and help fields."""
         raw = self._raw_text()
         components = []
         for _title, i in raw.items():
@@ -44,11 +48,13 @@ class Error():
         return text
 
     def _raw_text(self) -> dict:
+        """Finds and returns the error entry across all JSON sections."""
         for section, content in self.dict.items():
             if self.error in content:
                 return content[self.error]
 
     def _validator(self, code_error):
+        """Validates the error code is within the JSON range."""
         final_section = next(reversed(self.dict))
         final_code = next(reversed(self.dict[final_section]))
         raw_code = (final_code.split("ERR"))[1]
@@ -57,6 +63,7 @@ class Error():
         raise ErrorValueOutOfRange("The error code does not exist in errors.json")
 
     def format(self, **kwargs):
+        """Interpolates placeholders with kwargs. Returns self for chaining."""
         self.text = self.text.format(**kwargs)
         return self
 

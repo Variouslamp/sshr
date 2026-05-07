@@ -95,6 +95,7 @@ def obtener_argumentos(
             case "flag":
                 argumentos_entregar.append(argumentos[0])
             case _:
+                # Error interno de desarrollo - campo sin caso en match
                 return print("Error: campo no esta en direcciones")
     return argumentos_entregar
 

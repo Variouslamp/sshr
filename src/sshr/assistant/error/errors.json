@@ -50,5 +50,19 @@
       "message": "[ERR011] Invalid input: expected a {type}",
       "help": "→ Enter a valid value and try again"
     }
+  },
+  "cli": {
+    "ERR012": {
+      "message": "[ERR012] Invalid flag: unrecognized command",
+      "help": "→ Run with --help to see available commands"
+    },
+    "ERR013": {
+      "message": "[ERR013] No arguments provided",
+      "help": "→ Run with --help to see available commands"
+    },
+    "ERR014": {
+      "message": "[ERR014] Wrong number of arguments for '{command}' command",
+      "help": "→ Run with --help to see correct usage"
+    }
   }
 }

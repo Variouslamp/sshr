@@ -8,6 +8,7 @@ from .orchestrator import (
     COMANDOS,  # Diccionario de comandos y sus caracteristicas
     orchestrator_main,  # Orquestador de coneccion con modulos de comandos
     )
+from sshr.assistant.error import Error
 
 # -----------------------------------------------------------------------------
 # Definicion de flags y su validacion
@@ -34,7 +35,7 @@ def validar_cantidad(comando: str, num_argumentos: int) -> bool:
     if num_argumentos == flags_dict[comando]["input_args"]:
         return True
     else:
-        print(f"Error: Numero de argumentos para la accion <{comando}> ")
+        Error("ERR014").format(command=comando).print_er()
 
 
 # -----------------------------------------------------------------------------
@@ -47,11 +48,11 @@ def main():
     if num_args != 0:
         comando = validar_flag(args[0], flags_dict)
         if not type(comando) is str:
-            return print("Error: Flag no valida")
+            return Error("ERR012").print_er()
         if validar_cantidad(comando, num_args):
             orchestrator_main(comando, flags_dict, args)
     else:
-        print("Error: Argumentos no ingresados")
+        Error("ERR013").print_er()
 
 
 # -----------------------------------------------------------------------------

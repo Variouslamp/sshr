@@ -1,0 +1,9 @@
+
+Host casa
+    HostName NUC
+    User various
+    Port 22
+
+Host home
+    HostName various
+    Port 22
