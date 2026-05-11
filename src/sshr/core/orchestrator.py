@@ -50,6 +50,13 @@ COMANDOS = {
         "used_args": 0,
         "input_args": 1,
         "need_args": [],
+        },
+    "help": {
+        "function": build_main, # Funcion de help (aun no creada)
+        "flags": ["-h", "--help"],
+        "used_args": 0,
+        "input_args": 1,
+        "need_args": [],
         }
 }
 

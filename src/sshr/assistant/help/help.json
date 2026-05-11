@@ -1,0 +1,60 @@
+{
+    "general": {
+        "title": "SSHR - SSH Register CLI",
+        "description": "Manage SSH connections through aliases without manually editing ~/.ssh/config",
+        "usage": "sshr <flag> [arguments]",
+        "commands": [
+            "-r, --register <user@host:port>   Register a new connection",
+            "-l, --list [flag]                  List connections (-ll for details)",
+            "-d, --delete                       Delete a connection (interactive)",
+            "-e, --edit                         Edit a connection",
+            "-h, --help [topic]                 Show general or detailed help"
+        ]
+    },
+
+    "commands": {
+        "register": {
+            "aliases": "-r, --register",
+            "usage": "sshr -r <user@host:port>",
+            "description": "Register a new SSH connection in the config file.",
+            "format": "user@host:port  |  user@host  |  host:port  |  host",
+            "details": "Automatically detects user, host and port. Defaults to port 22 if not specified.",
+            "example": "sshr -r alice@192.168.1.20:2200"
+        },
+        "list": {
+            "aliases": "-l, -ll, --list",
+            "usage": "sshr -l    |    sshr -ll",
+            "description": "List all registered connections.",
+            "details": "-l  shows a compact one-line list per connection.\n-ll shows a detailed list with all fields.",
+            "example": "sshr -ll"
+        },
+        "delete": {
+            "aliases": "-d, --delete",
+            "usage": "sshr -d",
+            "description": "Delete an existing connection interactively.",
+            "details": "Shows the connection list, prompts for selection by number and asks for confirmation before deleting.",
+            "example": "sshr -d"
+        },
+        "edit": {
+            "aliases": "-e, --edit",
+            "usage": "sshr -e",
+            "description": "Edit an existing connection.",
+            "details": "Command in development.",
+            "example": ""
+        },
+        "build": {
+            "aliases": "build",
+            "usage": "sshr build",
+            "description": "Build the required directory structure.",
+            "details": "Command in development.",
+            "example": ""
+        },
+        "help": {
+            "aliases": "-h, --help",
+            "usage": "sshr -h [topic]",
+            "description": "Show general or detailed help for a command or error.",
+            "details": "sshr -h              -> general help\nsshr -h register     -> help for the register command\nsshr -h ERR012       -> explanation of error ERR012",
+            "example": "sshr -h register"
+        }
+    }
+}
