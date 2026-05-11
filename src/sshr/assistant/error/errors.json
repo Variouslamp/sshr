@@ -1,68 +1,142 @@
 {
-  "register": {
-    "ERR001": {
-      "message": "[ERR001] Invalid address: too many '@' symbols in '{value}'",
-      "help": "→ Use format: user@hostname:port"
+    "register": {
+        "ERR001": {
+            "message": "[ERR001] Invalid address: too many '@' symbols in '{value}'",
+            "tip": "Use format: user@hostname:port",
+            "help": {
+                "description": "The address contains more than one '@' symbol. Only one '@' is allowed to separate the user from the host.",
+                "solution": "Remove the extra '@' symbols. Use a single '@' to separate user and host, then optionally a ':' to specify the port.",
+                "examples": "> sshr -r user@host@22:2200             !!! INVALID (two @)\n> sshr -r user@@192.168.1.20             !!! INVALID (two @)\n> sshr -r alice@192.168.1.20:2200        \u2713 VALID\n\n> sshr -r <user>@<host>:<port>           correct syntax\n\nFor more details about -r syntax use:\n> sshr --help register"
+            }
+        },
+        "ERR002": {
+            "message": "[ERR002] Invalid address: too many ':' symbols in '{value}'",
+            "tip": "Use format: user@hostname:port",
+            "help": {
+                "description": "The address contains more than one ':' symbol. Only one ':' is allowed to separate the host from the port.",
+                "solution": "Remove the extra ':' symbols. Use a single ':' after the host to specify the port, or omit it to use the default port 22.",
+                "examples": "> sshr -r alice@host:22:3300             !!! INVALID (two :)\n> sshr -r alice@host::2200               !!! INVALID (empty segment)\n> sshr -r alice@192.168.1.20:2200        \u2713 VALID\n\n> sshr -r <user>@<host>:<port>           correct syntax\n\nFor more details about -r syntax use:\n> sshr --help register"
+            }
+        },
+        "ERR003": {
+            "message": "[ERR003] Invalid address: missing required parts in '{value}'",
+            "tip": "Use format: user@hostname:port",
+            "help": {
+                "description": "The address contains empty segments. None of the parts separated by '@' or ':' can be empty.",
+                "solution": "Ensure every segment has a value. User, host, and port must all be present and non-empty.",
+                "examples": "> sshr -r alice@:2200                     !!! INVALID (empty host)\n> sshr -r @192.168.1.20:2200             !!! INVALID (empty user)\n> sshr -r alice@192.168.1.20:2200        \u2713 VALID\n\n> sshr -r <user>@<host>:<port>           correct syntax\n\nFor more details about -r syntax use:\n> sshr --help register"
+            }
+        },
+        "ERR004": {
+            "message": "[ERR004] Invalid address: ':' must come after '@' in '{value}'",
+            "tip": "Use format: user@hostname:port",
+            "help": {
+                "description": "The ':' appears before the '@'. The port separator must come after the user-host separator.",
+                "solution": "Place '@' first to separate user and host, then ':' for the port. Never the other way around.",
+                "examples": "> sshr -r alice:host@2200                 !!! INVALID (wrong order)\n> sshr -r alice:192.168.1.20@2200        !!! INVALID (wrong order)\n> sshr -r alice@192.168.1.20:2200        \u2713 VALID\n\n> sshr -r <user>@<host>:<port>           correct syntax\n\nFor more details about -r syntax use:\n> sshr --help register"
+            }
+        },
+        "ERR005": {
+            "message": "[ERR005] Invalid address: '@' must come after ':' in '{value}'",
+            "tip": "Use format: user@hostname:port",
+            "help": {
+                "description": "The '@' appears after the ':'. This means the port was placed between the user and the host, which is incorrect.",
+                "solution": "Always place ':' after '@'. The order must be user@host:port, never user:port@host.",
+                "examples": "> sshr -r user:2200@192.168.1.20          !!! INVALID (wrong order)\n> sshr -r alice:3300@server              !!! INVALID (wrong order)\n> sshr -r alice@192.168.1.20:2200        \u2713 VALID\n\n> sshr -r <user>@<host>:<port>           correct syntax\n\nFor more details about -r syntax use:\n> sshr --help register"
+            }
+        },
+        "ERR006": {
+            "message": "[ERR006] Invalid address: port must be a number",
+            "tip": "Use a numeric value for the port",
+            "help": {
+                "description": "The port value after ':' is not a number. SSH ports must be numeric values between 1 and 65535.",
+                "solution": "Provide a numeric value for the port. If you omit the port entirely, port 22 will be used by default.",
+                "examples": "> sshr -r alice@server:abc                !!! INVALID (not a number)\n> sshr -r alice@server:22b                !!! INVALID (not a number)\n> sshr -r alice@192.168.1.20:2200        \u2713 VALID\n\n> sshr -r <user>@<host>:<port>           correct syntax\n\nFor more details about -r syntax use:\n> sshr --help register"
+            }
+        },
+        "ERR007": {
+            "message": "[ERR007] Alias already exists: '{name}' is already registered",
+            "tip": "Choose a different name",
+            "help": {
+                "description": "The alias you entered already exists in the SSH config file. Each alias must be unique to avoid conflicts.",
+                "solution": "Choose a different alias for this connection, or delete the existing one first if you want to reuse the alias.",
+                "examples": "> Alias: myserver                          !!! INVALID (already exists)\n> Alias: myserver-2                        \u2713 VALID\n> Alias: myserver-backup                   \u2713 VALID\n\nFor more details about -r syntax use:\n> sshr --help register"
+            }
+        },
+        "ERR008": {
+            "message": "[ERR008] Invalid option: enter a number",
+            "tip": "Select 1, 2, or 0 to continue",
+            "help": {
+                "description": "You entered text when a number was expected. The menu only accepts numeric options.",
+                "solution": "Enter the number corresponding to the option displayed on screen.",
+                "examples": "> Input: yes                               !!! INVALID (not a number)\n> Input: two                               !!! INVALID (not a number)\n> Input: 1                                 \u2713 VALID (confirm)\n> Input: 2                                 \u2713 VALID (edit alias)\n> Input: 0                                 \u2713 VALID (cancel)"
+            }
+        }
     },
-    "ERR002": {
-      "message": "[ERR002] Invalid address: too many ':' symbols in '{value}'",
-      "help": "→ Use format: user@hostname:port"
+
+    "delete": {
+        "ERR009": {
+            "message": "[ERR009] Invalid selection: enter a number between 1 and {max}",
+            "tip": "Select a valid option from the list",
+            "help": {
+                "description": "The number entered is outside the valid range of available connections.",
+                "solution": "Look at the numbered list and enter a number that matches one of the listed connections.",
+                "examples": "> Input: 0                                 !!! INVALID (out of range)\n> Input: 6  (when only 5 exist)           !!! INVALID (out of range)\n> Input: 3                                 \u2713 VALID\n\nFor more details about -d syntax use:\n> sshr --help delete"
+            }
+        }
     },
-    "ERR003": {
-      "message": "[ERR003] Invalid address: missing required parts in '{value}'",
-      "help": "→ Use format: user@hostname:port"
+
+    "list": {
+        "ERR010": {
+            "message": "[ERR010] No connections found",
+            "tip": "Register a connection first using --register",
+            "help": {
+                "description": "There are no SSH connections stored in the config file, so there is nothing to display.",
+                "solution": "Register at least one connection using the --register flag before trying to list connections.",
+                "examples": "> sshr -l                                 !!! No connections yet\n> sshr -r alice@192.168.1.20:2200         \u2713 Register first\n> sshr -l                                 \u2713 Now connections appear\n\nFor more details about -l syntax use:\n> sshr --help list"
+            }
+        }
     },
-    "ERR004": {
-      "message": "[ERR004] Invalid address: ':' must come after '@' in '{value}'",
-      "help": "→ Use format: user@hostname:port"
+
+    "validation": {
+        "ERR011": {
+            "message": "[ERR011] Invalid input: expected a {type}",
+            "tip": "Enter a valid value and try again",
+            "help": {
+                "description": "The value entered does not match the expected data type for this prompt.",
+                "solution": "Pay attention to the prompt and enter a value of the correct type.",
+                "examples": "> Expected number, got: forty-two          !!! INVALID\n> Expected number, got: 42                 \u2713 VALID"
+            }
+        }
     },
-    "ERR005": {
-      "message": "[ERR005] Invalid address: '@' must come after ':' in '{value}'",
-      "help": "→ Use format: user@hostname:port"
-    },
-    "ERR006": {
-      "message": "[ERR006] Invalid address: port must be a number",
-      "help": "→ Use format: user@hostname:port"
-    },
-    "ERR007": {
-      "message": "[ERR007] Alias already exists: '{name}' is already registered",
-      "help": "→ Choose a different name"
-    },
-    "ERR008": {
-      "message": "[ERR008] Invalid option: enter a number",
-      "help": "→ Select 1, 2, or 0 to continue"
+
+    "cli": {
+        "ERR012": {
+            "message": "[ERR012] Invalid flag: unrecognized command",
+            "tip": "Run with --help to see available commands",
+            "help": {
+                "description": "The flag or command entered does not match any registered command in the system.",
+                "solution": "Use the --help flag to see the full list of valid flags and their usage.",
+                "examples": "> sshr --invalid-flag                     !!! INVALID (unknown flag)\n> sshr --register                          !!! INVALID (use -r instead)\n> sshr -r alice@192.168.1.20:2200         \u2713 VALID\n\nAvailable commands:\n  -r, --register    Register a new connection\n  -l, -ll, --list   List connections\n  -d, --delete      Delete a connection\n  -e, --edit        Edit a connection\n  -h, --help        Show help\n\n> sshr --help                              Show all commands"
+            }
+        },
+        "ERR013": {
+            "message": "[ERR013] No arguments provided",
+            "tip": "Run with --help to see available commands",
+            "help": {
+                "description": "You ran sshr without any arguments. The program needs at least one flag to know what action to perform.",
+                "solution": "Provide a valid flag to tell sshr what you want to do. Use --help to see available options.",
+                "examples": "> sshr                                    !!! No arguments\n> sshr --help                              \u2713 Shows available commands\n> sshr -r alice@192.168.1.20:2200         \u2713 VALID command"
+            }
+        },
+        "ERR014": {
+            "message": "[ERR014] Wrong number of arguments for '{command}' command",
+            "tip": "Run with --help to see correct usage",
+            "help": {
+                "description": "The command requires a specific number of arguments, but a different amount was provided.",
+                "solution": "Check the correct usage with --help and provide the exact number of arguments expected.",
+                "examples": "> sshr -r                                 !!! Missing arguments\n> sshr -r alice@192.168.1.20:2200         \u2713 Correct arguments\n\nFor more details about the command and its respective arguments use:\n> sshr --help <command>"
+            }
+        }
     }
-  },
-  "delete": {
-    "ERR009": {
-      "message": "[ERR009] Invalid selection: enter a number between 1 and {max}",
-      "help": "→ Select a valid option from the list"
-    }
-  },
-  "list": {
-    "ERR010": {
-      "message": "[ERR010] No connections found",
-      "help": "→ Register a connection first using --register"
-    }
-  },
-  "validation": {
-    "ERR011": {
-      "message": "[ERR011] Invalid input: expected a {type}",
-      "help": "→ Enter a valid value and try again"
-    }
-  },
-  "cli": {
-    "ERR012": {
-      "message": "[ERR012] Invalid flag: unrecognized command",
-      "help": "→ Run with --help to see available commands"
-    },
-    "ERR013": {
-      "message": "[ERR013] No arguments provided",
-      "help": "→ Run with --help to see available commands"
-    },
-    "ERR014": {
-      "message": "[ERR014] Wrong number of arguments for '{command}' command",
-      "help": "→ Run with --help to see correct usage"
-    }
-  }
 }

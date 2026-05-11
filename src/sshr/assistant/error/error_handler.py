@@ -1,5 +1,6 @@
 # -----------------------------------------------------------------------------
 
+
 from pathlib import Path
 import json  # Manejo de informacion de error en el json
 
@@ -43,7 +44,10 @@ class Error():
         raw = self._raw_text()
         components = []
         for _title, i in raw.items():
+            if _title == "help":  # Exepciones de contenido a no imprimir
+                continue
             components.append(i)
+        components.append(f"→ For more information about the error, use 'sshr --help {self.error}'")
         text = "\n".join(components)
         return text
 
