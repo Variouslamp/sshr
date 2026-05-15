@@ -2,59 +2,65 @@
     "general": {
         "title": "SSHR - SSH Register CLI",
         "description": "Manage SSH connections through aliases without manually editing ~/.ssh/config",
-        "usage": "sshr <flag> [arguments]",
+        "usage": "USAGE\n    sshr <flag> [arguments]",
         "commands": [
-            "-r, --register <user@host:port>   Register a new connection",
-            "-l, --list [flag]                  List connections (-ll for details)",
-            "-d, --delete                       Delete a connection (interactive)",
-            "-e, --edit                         Edit a connection",
-            "-h, --help [topic]                 Show general or detailed help"
+            "COMMANDS",
+            "    -r, --register <target>    Register a new SSH connection",
+            "    -l, --list [flag]          List registered connections",
+            "    -d, --delete               Delete a connection interactively",
+            "    -e, --edit                 Edit an existing connection",
+            "    -h, --help [topic]         Show general or detailed help"
         ]
     },
-
     "commands": {
         "register": {
-            "aliases": "-r, --register",
-            "usage": "sshr -r <user@host:port>",
-            "description": "Register a new SSH connection in the config file.",
-            "format": "user@host:port  |  user@host  |  host:port  |  host",
-            "details": "Automatically detects user, host and port. Defaults to port 22 if not specified.",
-            "example": "sshr -r alice@192.168.1.20:2200"
+            "aliases": "COMMAND\n    -r, --register",
+            "usage": "USAGE\n    sshr -r [user@]host[:port]",
+            "description": "DESCRIPTION\n    Register a new SSH connection in the SSHR config file.",
+            "format": "SUPPORTED INPUTS\n    user@host:port\n    user@host\n    host:port\n    host",
+            "details": "DETAILS\n    • Automatically detects user, host and port\n    • Port defaults to 22 when omitted\n    • Supports both IP addresses and hostnames",
+            "example": "VALID EXAMPLES\n    ✓ sshr -r alice@192.168.1.20:2200\n    ✓ sshr -r root@server\n    ✓ sshr -r 192.168.1.20\n    ✓ sshr -r server:2222",
+            "seealso": "SEE ALSO\n    sshr --help ERR001\n    sshr --help ERR014"
         },
         "list": {
-            "aliases": "-l, -ll, --list",
-            "usage": "sshr -l    |    sshr -ll",
-            "description": "List all registered connections.",
-            "details": "-l  shows a compact one-line list per connection.\n-ll shows a detailed list with all fields.",
-            "example": "sshr -ll"
+            "aliases": "COMMAND\n    -l, -ll, --list",
+            "usage": "USAGE\n    sshr -l\n    sshr -ll",
+            "description": "DESCRIPTION\n    Display all registered SSH connections.",
+            "details": "DETAILS\n    • -l  shows a compact one-line summary per connection\n    • -ll shows detailed information for every field",
+            "example": "VALID EXAMPLES\n    ✓ sshr -l\n    ✓ sshr -ll",
+            "seealso": "SEE ALSO\n    sshr --help delete\n    sshr --help edit"
         },
         "delete": {
-            "aliases": "-d, --delete",
-            "usage": "sshr -d",
-            "description": "Delete an existing connection interactively.",
-            "details": "Shows the connection list, prompts for selection by number and asks for confirmation before deleting.",
-            "example": "sshr -d"
+            "aliases": "COMMAND\n    -d, --delete",
+            "usage": "USAGE\n    sshr -d",
+            "description": "DESCRIPTION\n    Delete an existing SSH connection interactively.",
+            "details": "DETAILS\n    • Displays the registered connection list\n    • Prompts for selection using the connection number\n    • Requests confirmation before deletion",
+            "example": "VALID EXAMPLES\n    ✓ sshr -d",
+            "seealso": "SEE ALSO\n    sshr --help list"
         },
         "edit": {
-            "aliases": "-e, --edit",
-            "usage": "sshr -e",
-            "description": "Edit an existing connection.",
-            "details": "Command in development.",
-            "example": ""
+            "aliases": "COMMAND\n    -e, --edit",
+            "usage": "USAGE\n    sshr -e",
+            "description": "DESCRIPTION\n    Edit an existing SSH connection.",
+            "details": "DETAILS\n    • Command currently under development\n    • Future versions will support interactive editing",
+            "example": "VALID EXAMPLES\n    ✓ sshr -e",
+            "seealso": "SEE ALSO\n    sshr --help list"
         },
         "build": {
-            "aliases": "build",
-            "usage": "sshr build",
-            "description": "Build the required directory structure.",
-            "details": "Command in development.",
-            "example": ""
+            "aliases": "COMMAND\n    build",
+            "usage": "USAGE\n    sshr build",
+            "description": "DESCRIPTION\n    Build the required SSHR directory structure.",
+            "details": "DETAILS\n    • Creates internal directories and required files\n    • Command currently under development",
+            "example": "VALID EXAMPLES\n    ✓ sshr build",
+            "seealso": "SEE ALSO\n    sshr --help"
         },
         "help": {
-            "aliases": "-h, --help",
-            "usage": "sshr -h [topic]",
-            "description": "Show general or detailed help for a command or error.",
-            "details": "sshr -h              -> general help\nsshr -h register     -> help for the register command\nsshr -h ERR012       -> explanation of error ERR012",
-            "example": "sshr -h register"
+            "aliases": "COMMAND\n    -h, --help",
+            "usage": "USAGE\n    sshr -h [topic]",
+            "description": "DESCRIPTION\n    Show general or detailed help information.",
+            "details": "DETAILS\n    • Without arguments shows general help\n    • Accepts command names as help topics\n    • Accepts error codes for detailed explanations",
+            "example": "VALID EXAMPLES\n    ✓ sshr -h\n    ✓ sshr -h register\n    ✓ sshr -h ERR012",
+            "seealso": "SEE ALSO\n    sshr --help ERR016"
         }
     }
 }

@@ -7,3 +7,8 @@ Host casa
 Host home
     HostName various
     Port 22
+
+Host Work
+    HostName 1234
+    User hola
+    Port 22
