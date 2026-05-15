@@ -26,8 +26,10 @@ def validar_cantidad(comando: str, num_argumentos: int) -> bool:
     if "max_input_args" in flags_dict[comando]:
         if not (flags_dict[comando]["min_input_args"] <= num_argumentos <= flags_dict[comando]["max_input_args"]):
             Error("ERR014").format(command=comando).print_er()
+            sys.exit(1)
     elif not (num_argumentos == flags_dict[comando]["input_args"]):
         Error("ERR014").format(command=comando).print_er()
+        sys.exit(1)
     return True
 
 
