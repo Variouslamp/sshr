@@ -11,7 +11,7 @@
 from sshr.assistant.error import Error
 
 
-def validator(type: type, text: str = "", error_text: str = None) -> type: # retorna el type que se ingreso
+def validator(type: type, text: str = "") -> type: # retorna el type que se ingreso
     while True:
         try:
             data = type(input(text))
@@ -19,3 +19,17 @@ def validator(type: type, text: str = "", error_text: str = None) -> type: # ret
         except ValueError:
             Error("ERR011").format(type=type).print_er()
             continue
+
+
+# -----------------------------------------------------------------------------
+# Validador de  entrada de flags y si hace parte de una de las flags definidas
+# en el diccionario que se le pase a la funcion
+
+# Ingreso de una flag y su validacion segun diccionario de flags
+def validar_flag(flag: str, diccionario: dict) -> bool:
+    for comando in diccionario:
+        if comando[0] in flag:
+            flag_list = diccionario[comando]["flags"]
+            if flag in flag_list:
+                return comando
+    return False

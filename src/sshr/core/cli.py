@@ -9,6 +9,7 @@ from .orchestrator import (
     orchestrator_main,  # Orquestador de coneccion con modulos de comandos
     )
 from sshr.assistant.error import Error
+from sshr.core.internal.validation import validar_flag
 
 # -----------------------------------------------------------------------------
 # Definicion de flags y su validacion
@@ -17,25 +18,17 @@ from sshr.assistant.error import Error
 flags_dict = COMANDOS  # diccionario con toda la informacion de los comandos
 
 
-# Ingreso de una flag y su validacion segun diccionario de flags
-def validar_flag(flag: str, diccionario: dict) -> bool:
-    for comando in diccionario:
-        if comando[0] in flag:
-            flag_list = diccionario[comando]["flags"]
-            if flag in flag_list:
-                return comando
-    return False
-
-
 # -----------------------------------------------------------------------------
 # Valida la cantidad de argumentos necesarios para usar un comando especifico
 
 
 def validar_cantidad(comando: str, num_argumentos: int) -> bool:
-    if num_argumentos == flags_dict[comando]["input_args"]:
-        return True
-    else:
+    if "max_input_args" in flags_dict[comando]:
+        if not (flags_dict[comando]["min_input_args"] <= num_argumentos <= flags_dict[comando]["max_input_args"]):
+            Error("ERR014").format(command=comando).print_er()
+    elif not (num_argumentos == flags_dict[comando]["input_args"]):
         Error("ERR014").format(command=comando).print_er()
+    return True
 
 
 # -----------------------------------------------------------------------------
