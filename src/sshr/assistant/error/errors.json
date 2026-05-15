@@ -138,5 +138,25 @@
                 "examples": "> sshr -r                                 !!! Missing arguments\n> sshr -r alice@192.168.1.20:2200         \u2713 Correct arguments\n\nFor more details about the command and its respective arguments use:\n> sshr --help <command>"
             }
         }
+    },
+    "help": {
+        "ERR015": {
+            "message": "[ERR015] Error code '{code}' not found: no matching error registered",
+            "tip": "Double-check the error code you entered and try again",
+            "help": {
+                "description": "The error code you entered does not correspond to any registered error in the system. The code may be misspelled, outdated, or not yet implemented.",
+                "solution": "Verify the error code you are searching for. Make sure it follows the 'ERR' prefix followed by three digits (e.g., ERR001, ERR014).",
+                "examples": "> sshr --help ERR999                     !!! INVALID (code does not exist)\n> sshr --help ERRABC                     !!! INVALID (malformed code)\n> sshr --help ERR001"
+            }
+        },
+        "ERR016": {
+            "message": "[ERR016] Unknown command: '{command}' is not a recognized command",
+            "tip": "Run with --help to see available commands",
+            "help": {
+                "description": "The command you entered after --help does not match any registered command in the system.",
+                "solution": "Use sshr --help to see the complete list of available commands and check the spelling.",
+                "examples": "> sshr --help regiser                     !!! INVALID (typo)\n> sshr --help register                    \u2713 VALID\n\n> sshr --help                              Show all available commands"
+            }
+        }
     }
 }

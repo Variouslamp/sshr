@@ -59,11 +59,16 @@ class Error():
 
     def _validator(self, code_error):
         """Validates the error code is within the JSON range."""
-        final_section = next(reversed(self.dict))
-        final_code = next(reversed(self.dict[final_section]))
-        raw_code = (final_code.split("ERR"))[1]
-        if int((code_error.split("ERR"))[1]) <= int(raw_code):
-            return code_error
+        if "ERR" not in code_error:
+            raise ErrorValueOutOfRange("The error code does not exist in errors.json")
+        try:
+            final_section = next(reversed(self.dict))
+            final_code = next(reversed(self.dict[final_section]))
+            raw_code = (final_code.split("ERR"))[1]
+            if int((code_error.split("ERR"))[1]) <= int(raw_code):
+                return code_error
+        except (IndexError, ValueError):
+            raise ErrorValueOutOfRange("The error code does not exist in errors.json")
         raise ErrorValueOutOfRange("The error code does not exist in errors.json")
 
     def format(self, **kwargs):
