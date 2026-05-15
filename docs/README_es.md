@@ -33,18 +33,27 @@ Host mi-servidor
 
 SSHR funciona mediante flags:
 
-* `-r` → Registrar una nueva conexión
-* `-l` → Listar conexiones almacenadas
-* `-e` → Editar una conexión existente
-* `-d` → Eliminar una conexión
-
-> Para más detalles, usar el sistema de ayuda integrado.
+| Flag | Comando | Descripción |
+|------|---------|-------------|
+| `-r`, `--register` | register | Registrar una nueva conexión |
+| `-l` | list | Listar conexiones (compacto) |
+| `-ll` | list | Listar conexiones (detallado) |
+| `-d`, `--delete` | delete | Eliminar una conexión (interactivo) |
+| `-e`, `--edit` | edit | Editar una conexión (en desarrollo) |
+| `build` | build | Construir estructura de directorios (en desarrollo) |
+| `-h`, `--help [tema]` | help | Mostrar ayuda general, de un comando o de un error |
 
 ---
 
 ## 📖 Ayuda
 
-La herramienta incluye un sistema de ayuda (`--help`) donde se detallan todas las opciones y su uso.
+La herramienta incluye un sistema de ayuda integrado con tres modos:
+
+```bash
+sshr -h                  # Ayuda general — muestra todos los comandos
+sshr -h register         # Ayuda de un comando — muestra uso y ejemplos
+sshr -h ERR012           # Ayuda de error — explica qué significa el error
+```
 
 ---
 
@@ -54,7 +63,7 @@ La herramienta incluye un sistema de ayuda (`--help`) donde se detallan todas la
 * ✅ Listado de conexiones (`-l`) implementado
 * ✅ Eliminación de conexiones (`-d`) implementado
 * ⚙️ Edición de conexiones (`-e`) en desarrollo
-* ⚙️ Comando de ayuda (`-h`) en desarrollo
+* ✅ Comando de ayuda (`-h`) implementado
 
 ---
 
