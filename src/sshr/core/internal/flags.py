@@ -28,7 +28,7 @@ COMANDOS = {
         "need_args": ["directorio_ssh"],
     },
     "build": {
-        "flags": ["build"],
+        "flags": ["--build"],
         "used_args": 0,
         "input_args": 1,
         "need_args": [],

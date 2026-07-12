@@ -158,5 +158,16 @@
                 "examples": "> sshr --help regiser                     !!! INVALID (typo)\n> sshr --help register                    \u2713 VALID\n\n> sshr --help                              Show all available commands"
             }
         }
+    },
+    "build": {
+        "ERR017": {
+            "message": "[ERR017] SSH config file not found: '~/.ssh/config' does not exist",
+            "tip": "Create the config file manually or run 'sshr build'",
+            "help": {
+                "description": "No SSH config file was found to store or read aliases. SSHR uses the plain text file '~/.ssh/config' to manage SSH aliases and connections.",
+                "solution": "First, verify whether the 'config' file exists inside '~/.ssh/', which is the default location for storing your aliases. If you do not use that folder, check the directory defined in '~/.config/sshr/config.ini' and confirm that a 'config' file exists inside that directory. If you cannot find the 'sshr' folder inside '~/.config/', it means you have not run 'sshr build' yet, the command that creates the full configuration structure, including the 'config' file. In that case, run it so SSHR can generate the required files automatically.",
+                "examples": "> ls ~/.ssh/config                       !!! INVALID (file not found)\n> mkdir -p ~/.ssh && touch ~/.ssh/config  ✓ VALID\n> sshr build                               ✓ VALID (creates it automatically)\n\nFor more details about the build command use:\n> sshr --help build"
+            }
+        }
     }
 }
