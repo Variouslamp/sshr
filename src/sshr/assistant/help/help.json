@@ -6,7 +6,7 @@
         "commands": [
             "COMMANDS",
             "    -r, --register <target>    Register a new SSH connection",
-            "    -l, --list [flag]          List registered connections",
+            "    -l, --list                 List registered connections",
             "    -d, --delete               Delete a connection interactively",
             "    -e, --edit                 Edit an existing connection",
             "    -h, --help [topic]         Show general or detailed help"

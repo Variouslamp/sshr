@@ -40,7 +40,7 @@ def print_long_list(lista_ordenada: list):
 
 
 # -----------------------------------------------------------------------------
-# Funcion la cual imprime todas las conexiones en formato de lista larga
+# Funcion la cual imprime todas las conexiones en formato de lista corta
 
 
 def print_short_list(lista):
