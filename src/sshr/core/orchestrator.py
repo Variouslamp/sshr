@@ -72,10 +72,10 @@ def obtener_argumentos(
                 archivo = Path(f"{directorio_ssh}/config").expanduser()
                 if archivo.exists():
                     argumentos_entregar.append(archivo)
-                    break
-                # si no hay una archivo de ssh de detiene el programa y se levanta un error que explica el porque 
-                Error("ERR017").print_er()
-                sys.exit(1)
+                else:
+                    # si no hay una archivo de ssh de detiene el programa y se levanta un error que explica el porque 
+                    Error("ERR017").print_er()
+                    sys.exit(1)
             case "flag":
                 # Retorna la flag del commando que se intenta ejecutar por el usuario
                 argumentos_entregar.append(argumentos[0])
