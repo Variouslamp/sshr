@@ -9,7 +9,9 @@
             "    -l, --list                 List registered connections",
             "    -d, --delete               Delete a connection interactively",
             "    -e, --edit                 Edit an existing connection",
-            "    -h, --help [topic]         Show general or detailed help"
+            "    --build                    Build directory structure",
+            "    -h, --help [topic]         Show general or detailed help",
+            "    --help [topic]             Show general or detailed help"
         ]
     },
     "commands": {
@@ -47,11 +49,11 @@
             "seealso": "SEE ALSO\n    sshr --help list"
         },
         "build": {
-            "aliases": "COMMAND\n    build",
-            "usage": "USAGE\n    sshr build",
-            "description": "DESCRIPTION\n    Build the required SSHR directory structure.",
-            "details": "DETAILS\n    • Creates internal directories and required files\n    • Command currently under development",
-            "example": "VALID EXAMPLES\n    ✓ sshr build",
+            "aliases": "COMMAND\n    --build",
+            "usage": "USAGE\n    sshr --build",
+            "description": "DESCRIPTION\n    Initialize the SSHR configuration structure.",
+            "details": "DETAILS\n    • Uses XDG_CONFIG_HOME and falls back to ~/.config\n    • Creates ~/.config/sshr if needed\n    • Copies the default config.ini into the SSHR config folder\n    • Reads SSH_DIR from config.ini\n    • Creates ~/.ssh and ~/.ssh/config if they do not exist",
+            "example": "VALID EXAMPLES\n    ✓ sshr --build",
             "seealso": "SEE ALSO\n    sshr --help"
         },
         "help": {
