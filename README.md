@@ -40,7 +40,7 @@ SSHR works through command-line flags:
 | `-ll` | list | List connections (detailed) |
 | `-d`, `--delete` | delete | Delete a connection (interactive) |
 | `-e`, `--edit` | edit | Edit a connection (in development) |
-| `build` | build | Build directory structure (in development) |
+| `--build` | build | Build directory structure (in development) |
 | `-h`, `--help [topic]` | help | Show general, command, or error help |
 
 ---
@@ -54,6 +54,12 @@ sshr -h                  # General help — shows all commands
 sshr -h register         # Command-specific help — shows usage and examples
 sshr -h ERR012           # Error help — explains what the error means
 ```
+
+---
+
+## 🔧 First run
+
+After installation, run `sshr --build` first. It prepares the required config files and directories so SSHR works correctly: it copies the SSHR config files into `~/.config/sshr`, creates `~/.ssh` if needed, and ensures `~/.ssh/config` exists before you start using the tool.
 
 ---
 
