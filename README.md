@@ -40,7 +40,7 @@ SSHR works through command-line flags:
 | `-ll` | list | List connections (detailed) |
 | `-d`, `--delete` | delete | Delete a connection (interactive) |
 | `-e`, `--edit` | edit | Edit a connection (in development) |
-| `--build` | build | Build directory structure (in development) |
+| `--build` | build | Build directory structure |
 | `-h`, `--help [topic]` | help | Show general, command, or error help |
 
 ---
@@ -68,6 +68,7 @@ After installation, run `sshr --build` first. It prepares the required config fi
 * ✅ Connection registration (`-r`) implemented
 * ✅ Listing connections (`-l`) implemented
 * ✅ Deleting connections (`-d`) implemented
+* ✅ Build command (`--build`) implemented
 * ⚙️ Editing connections (`-e`) in development
 * ✅ Help command (`-h`) implemented
 

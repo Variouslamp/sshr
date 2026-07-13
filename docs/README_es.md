@@ -40,7 +40,7 @@ SSHR funciona mediante flags:
 | `-ll` | list | Listar conexiones (detallado) |
 | `-d`, `--delete` | delete | Eliminar una conexión (interactivo) |
 | `-e`, `--edit` | edit | Editar una conexión (en desarrollo) |
-| `--build` | build | Construir estructura de directorios (en desarrollo) |
+| `--build` | build | Construir estructura de directorios |
 | `-h`, `--help [tema]` | help | Mostrar ayuda general, de un comando o de un error |
 
 ---
@@ -68,6 +68,7 @@ Después de instalar SSHR, ejecuta primero `sshr --build`. Esto prepara los arch
 * ✅ Registro de conexiones (`-r`) implementado
 * ✅ Listado de conexiones (`-l`) implementado
 * ✅ Eliminación de conexiones (`-d`) implementado
+* ✅ Comando build (`--build`) implementado
 * ⚙️ Edición de conexiones (`-e`) en desarrollo
 * ✅ Comando de ayuda (`-h`) implementado
 
