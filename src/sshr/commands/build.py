@@ -8,28 +8,28 @@ import os
 # Clase enfoca en la impresion de valores para no tener que repetir codigo
 
 class Message():
-    def __init__(self, text=None):
-        self.text = text
+    def __init__(self, text: str=""):
+        self.text: str = text
 
-    def pnt_step(self, number):
+    def pnt_step(self, number: int) -> None:
         print(f"[{number}] {self.text}")
 
-    def pnt_info(self):
+    def pnt_info(self) -> None:
         print(f"    ├─ [INFO] {self.text}")
 
-    def pnt_found(self):
+    def pnt_found(self) -> None:
         print(f"    ├─ [FOUND] {self.text}")
 
-    def pnt_crea(self):
+    def pnt_crea(self) -> None:
         print(f"    ├─ [CREATED] {self.text}")
 
-    def pnt_warn(self):
+    def pnt_warn(self) -> None:
         print(f"    ├─ [WARNING] {self.text}")
 
-    def pnt_done(self):
+    def pnt_done(self) -> None:
         print("    └─ [DONE] \n")
 
-    def pnt_end(self):
+    def pnt_end(self) -> None:
         print(self.text)
 
 
@@ -38,7 +38,7 @@ class Message():
 # de sshr
 
 
-def get_config_dir(home_dir, xdg_dir):
+def get_config_dir(home_dir: Path, xdg_dir: Path|None) -> Path:
     # Si la ruta de de configuracion no esta definida se usara la ruta comun
     # de $HOME/.config/
     if xdg_dir:
@@ -59,7 +59,7 @@ def get_config_dir(home_dir, xdg_dir):
 # -----------------------------------------------------------------------------
 # Funcion que busca o crea el directorio de configuracion de sshr
 
-def found_create_sshr_config(direccion_config):
+def found_create_sshr_config(direccion_config: Path):
     direccion_sshr = direccion_config / "sshr"
     if direccion_sshr.exists():
         Message(f"sshr configuration directory found in ({direccion_sshr})").pnt_found()
@@ -74,15 +74,15 @@ def found_create_sshr_config(direccion_config):
 # -----------------------------------------------------------------------------
 # Funcion enfocada en buscar archivo de configuracion y extraer su contenido
 
-def get_configuration_file(direccion_sshr, project_dir):
-    config_file = direccion_sshr / "config.ini"
+def get_configuration_file(direccion_sshr: Path, project_dir: Path) -> Path:
+    config_file: Path = direccion_sshr / "config.ini"
     if config_file.exists() and config_file.is_file():
         Message(f"Configuration file found in ({config_file})").pnt_found()
         return config_file
     Message("Configuration file was not found").pnt_warn()
     Message(f"Adding default configuration file to ({direccion_sshr})").pnt_info()
     config_template = project_dir / "templates/config.ini"
-    copy2(config_template, direccion_sshr)
+    _ = copy2(config_template, direccion_sshr)
     Message("Default configuration file was successfully added in configuration directory").pnt_crea()
     return config_file
 
@@ -91,10 +91,10 @@ def get_configuration_file(direccion_sshr, project_dir):
 # Funcion enfocada en buscar el archivo .ssh con la informacion plasmada en el config.ini
 
 
-def get_ssh_directory(config_file):
+def get_ssh_directory(config_file: Path) -> Path:
     Message("Reading 'config.ini' file to extract the ssh directory path").pnt_info()
     config = configparser.ConfigParser()
-    config.read(config_file)
+    _ = config.read(config_file)
     ssh_dir = Path(config["directory"]["SSH_DIR"]).expanduser()
     Message("ssh directory path was successfully extracted from the config file").pnt_info()
     Message("Checking if directory path exists...").pnt_info()
@@ -111,7 +111,7 @@ def get_ssh_directory(config_file):
 # Funcion enfocada en buscar el archivo .ssh con la informacion plasmada en el config.ini
 
 
-def get_ssh_config_file(ssh_dir):
+def get_ssh_config_file(ssh_dir: Path):
     ssh_config_file = ssh_dir / "config"
     if ssh_config_file.exists() and ssh_config_file.is_file():
         Message(f"ssh configuration file was found in ({ssh_config_file})").pnt_found()
@@ -127,10 +127,11 @@ def get_ssh_config_file(ssh_dir):
 # Funcion principal de construccion de carpetas y directorios
 
 def build_main():
-
     # Obtencion de las variables de entorno para identifica el directorio conf
-    home = Path(os.getenv("HOME"))
-    xdg = os.getenv("XDG_CONFIG_HOME")
+    home = Path.home()
+    xdg_env = os.getenv("XDG_CONFIG_HOME")
+    xdg = Path(xdg_env) if xdg_env else None
+
     PROJECT_DIR = Path(__file__).resolve().parent.parent
 
     print("="*6 + " BUILD " + "="*6 + "\n")
@@ -147,6 +148,6 @@ def build_main():
     ssh_dir = get_ssh_directory(config_file)
     Message().pnt_done()
     Message("Searching for config file in .ssh to store the aliases...").pnt_step(5)
-    get_ssh_config_file(ssh_dir)
+    _ = get_ssh_config_file(ssh_dir)
     Message().pnt_done()
     print("== BUILD PROCESS IS DONE ==")
